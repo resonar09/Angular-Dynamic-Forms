@@ -1,0 +1,83 @@
+<div class="container">
+  <form novalidate (ngSubmit)="onSubmit(form.value)" [formGroup]="form">
+    <div *ngFor="let prop of objectProps" class="form-group">
+
+      <label [attr.for]="prop">{{prop.label}}</label>
+      <div [ngSwitch]="prop.type">
+        <input *ngSwitchCase="'text'" class="form-control" [formControlName]="prop.key" [id]="prop.key" [type]="prop.type" [placeholder]="prop.placeholder">
+        <div *ngSwitchCase="'email'" class="input-group">
+          <span class="input-group-addon" id="sizing-addon1">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          </span>
+          <input class="form-control" [formControlName]="prop.key" [id]="prop.key" [type]="prop.type" [placeholder]="prop.placeholder">
+        </div>
+        <div *ngSwitchCase="'radio'" class="form-check">
+          <label *ngFor="let option of prop.options" class="form-check-label">
+            <input type="radio" class="form-check-input" [name]="prop.key" [formControlName]="prop.key" [value]="option.value"> {{ option.label }} 
+          </label>
+        </div>
+        <div *ngSwitchCase="'select'">
+          <select [formControlName]="prop.key" class="form-control">
+            <option *ngFor="let option of prop.options" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="error" *ngIf="form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched)">
+        <div *ngIf="form.get(prop.key).errors.required">
+          {{ prop.label }} is required.
+        </div>
+        <div *ngIf="form.get(prop.key).errors.min">
+          {{ prop.label }} must be greater than {{prop.validation.min}}.
+        </div>
+        <div *ngIf="form.get(prop.key).errors.max">
+          {{ prop.label }} must be less than {{prop.validation.max}}.
+        </div>
+
+        <div *ngIf="form.get(prop.key).errors.pattern">
+          You must enter a proper {{ prop.label | lowercase }} 
+        </div>
+        <!-- <div *ngFor="let custom of prop"> -->
+            {{prop | json}}
+          <!-- </div>  -->
+            
+
+
+<!--
+
+
+        </div>-->
+
+        <!--     <div *ngIf="form.get(prop.key).errors.validateUrl">
+          Error!
+        </div> 
+        {{form.get(prop.key).errors | json}}
+      -->
+      </div>
+   
+          {{form.get(prop.key).errors | json}}
+      
+      <!-- {{prop.validation.customs | json}} -->
+    </div>
+    <p>
+      <button [disabled]="!form.valid" type="submit" class="btn btn-primary btn-block">Save</button>
+    </p>
+  </form>
+  <hr />
+  <!-- This section is for evaluation in dev mode -->
+  <strong>Form Value</strong>
+  <pre>{{ form.value | json }}</pre>
+  <hr />
+  <strong>Form is valid:</strong> {{form.valid}}
+  <hr />
+  <div *ngFor="let prop of objectProps">
+      <strong>{{prop.label}} PROP</strong>
+      <pre>{{prop| json}}</pre>
+    <div *ngIf="prop.validation">
+      <strong>{{prop.label}} Validation</strong>
+      <pre>{{prop.validation | json}}</pre>
+    </div>
+  </div>
+  {{objectProps | json}}
+</div>
