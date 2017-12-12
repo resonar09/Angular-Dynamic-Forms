@@ -20,11 +20,11 @@ export const CAB = {
       customs: {
         validateStarts:{
           function: validateStarts,
-          message: 'This is a custom message'
+          message: 'Name must start with B'
         },
         validateEnds:{
           function: validateEnds,
-          message: 'This is a custom message'
+          message: 'Name must end with B'
         }
       }
       
