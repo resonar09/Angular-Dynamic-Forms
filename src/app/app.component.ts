@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { person } from './person';
 import { CAD } from './models/CAD';
 import { CAB } from './models/CAB';
 
