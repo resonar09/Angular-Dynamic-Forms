@@ -13,7 +13,7 @@
         </div>
         <div *ngSwitchCase="'radio'" class="form-check">
           <label *ngFor="let option of prop.options" class="form-check-label">
-            <input type="radio" class="form-check-input" [name]="prop.key" [formControlName]="prop.key" [value]="option.value"> {{ option.label }} 
+            <input type="radio" class="form-check-input" [name]="prop.key" [formControlName]="prop.key" [value]="option.value"> {{ option.label }}
           </label>
         </div>
         <div *ngSwitchCase="'select'">
@@ -36,29 +36,18 @@
         </div>
 
         <div *ngIf="form.get(prop.key).errors.pattern">
-          You must enter a proper {{ prop.label | lowercase }} 
+          You must enter a proper {{ prop.label | lowercase }}
         </div>
-        <!-- <div *ngFor="let custom of prop"> -->
-            {{prop | json}}
-          <!-- </div>  -->
-            
 
-
-<!--
-
-
-        </div>-->
-
-        <!--     <div *ngIf="form.get(prop.key).errors.validateUrl">
-          Error!
-        </div> 
-        {{form.get(prop.key).errors | json}}
-      -->
+        <div *ngFor="let key of objectKeys(form.get(prop.key).errors)">
+          <div *ngIf="'form.get(prop.key).errors.'+ key">
+            {{getCustomErrorMessage(key)}}
+          </div>
+        </div>
+        {{prop.validation.customs | json}}
       </div>
-   
-          {{form.get(prop.key).errors | json}}
-      
-      <!-- {{prop.validation.customs | json}} -->
+
+      {{form.get(prop.key).errors | json}}
     </div>
     <p>
       <button [disabled]="!form.valid" type="submit" class="btn btn-primary btn-block">Save</button>
@@ -72,8 +61,8 @@
   <strong>Form is valid:</strong> {{form.valid}}
   <hr />
   <div *ngFor="let prop of objectProps">
-      <strong>{{prop.label}} PROP</strong>
-      <pre>{{prop| json}}</pre>
+    <strong>{{prop.label}} PROP</strong>
+    <pre>{{prop| json}}</pre>
     <div *ngIf="prop.validation">
       <strong>{{prop.label}} Validation</strong>
       <pre>{{prop.validation | json}}</pre>
