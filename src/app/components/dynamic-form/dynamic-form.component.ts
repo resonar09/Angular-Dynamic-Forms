@@ -23,8 +23,8 @@ export class DynamicFormComponent implements OnInit {
   @Input() dataObject;
   form: FormGroup;
   objectProps;
-  objectValidationCustom =[];
-
+  objectValidationCustom;
+  objectKeys = Object.keys;
 
   constructor() {
   }
@@ -36,8 +36,7 @@ export class DynamicFormComponent implements OnInit {
         .map(prop => {
           return Object.assign({}, { key: prop }, this.dataObject[prop]);
         });
-   
-    console.log(this.objectProps);
+
     // setup the form
     const formGroup = {};
     for (let prop of Object.keys(this.dataObject)) {
@@ -60,15 +59,14 @@ export class DynamicFormComponent implements OnInit {
           formValidators.push(Validators.max(validators[validation]));
         } else if (validation === 'pattern') {
           formValidators.push(Validators.pattern(validators[validation]));
-/*           for (const pattern of Object.keys(validators.patterns)) {
-            formValidators.push(Validators.pattern(validators.patterns[pattern].pattern));
-            */
+          /*           for (const pattern of Object.keys(validators.patterns)) {
+                      formValidators.push(Validators.pattern(validators.patterns[pattern].pattern));
+                      */
         } else if (validation === 'customs') {
-          console.log(validators.customs);
-          
           for (const custom of Object.keys(validators.customs)) {
             //this.objectValidationCustom.push(validators.customs[custom])
             //console.log(validators.customs[custom]);
+            //this.objectValidationCustom.push(validators.customs);
             formValidators.push(validators.customs[custom].function);
           }
         }
@@ -76,7 +74,10 @@ export class DynamicFormComponent implements OnInit {
     }
     return formValidators;
   }
-
+  getCustomErrorMessage(key) {
+    console.log(key);
+    return "Test worked again!"
+  }
   onSubmit(form) {
     console.log(form);
   }
