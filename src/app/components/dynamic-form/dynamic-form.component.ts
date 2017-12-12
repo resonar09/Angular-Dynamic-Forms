@@ -59,14 +59,8 @@ export class DynamicFormComponent implements OnInit {
           formValidators.push(Validators.max(validators[validation]));
         } else if (validation === 'pattern') {
           formValidators.push(Validators.pattern(validators[validation]));
-          /*           for (const pattern of Object.keys(validators.patterns)) {
-                      formValidators.push(Validators.pattern(validators.patterns[pattern].pattern));
-                      */
         } else if (validation === 'customs') {
           for (const custom of Object.keys(validators.customs)) {
-            //this.objectValidationCustom.push(validators.customs[custom])
-            //console.log(validators.customs[custom]);
-            //this.objectValidationCustom.push(validators.customs);
             formValidators.push(validators.customs[custom].function);
           }
         }
@@ -74,9 +68,25 @@ export class DynamicFormComponent implements OnInit {
     }
     return formValidators;
   }
-  getCustomErrorMessage(key) {
-    console.log(key);
-    return "Test worked again!"
+  getErrorMessage(key, prop) {
+    //console.log(prop.validation.customs[key].message);
+    if (key === 'required') {
+      return prop.label + " is required.";
+    }
+    else if (key === 'min') {
+      return prop.label + " must be greater than " + prop.validation.min;
+    }
+    else if (key === 'max') {
+      return prop.label + " must be less than " + prop.validation.max;
+    }
+    else if (key === 'pattern') {
+      return  "You must enter a proper " +  prop.label;
+    }
+    else {
+      return prop.validation.customs[key].message;
+    }
+    //console.log(prop.validation.key);
+    //return "Test worked again!"
   }
   onSubmit(form) {
     console.log(form);

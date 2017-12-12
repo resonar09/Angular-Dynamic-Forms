@@ -25,23 +25,9 @@
         </div>
       </div>
       <div class="error" *ngIf="form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched)">
-        <div *ngIf="form.get(prop.key).errors.required">
-          {{ prop.label }} is required.
-        </div>
-        <div *ngIf="form.get(prop.key).errors.min">
-          {{ prop.label }} must be greater than {{prop.validation.min}}.
-        </div>
-        <div *ngIf="form.get(prop.key).errors.max">
-          {{ prop.label }} must be less than {{prop.validation.max}}.
-        </div>
-
-        <div *ngIf="form.get(prop.key).errors.pattern">
-          You must enter a proper {{ prop.label | lowercase }}
-        </div>
-
         <div *ngFor="let key of objectKeys(form.get(prop.key).errors)">
           <div *ngIf="'form.get(prop.key).errors.'+ key">
-            {{getCustomErrorMessage(key)}}
+            {{getErrorMessage(key, prop)}}
           </div>
         </div>
         {{prop.validation.customs | json}}
