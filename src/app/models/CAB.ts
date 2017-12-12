@@ -8,7 +8,7 @@ import { validateEnds } from "../validators/ends.validator";
 export const CAB = {
   settings: {
     title: 'CAB',
-    debug: true,
+    debug: false,
   },
   name: {
     label: 'Name',

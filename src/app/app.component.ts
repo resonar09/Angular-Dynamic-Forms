@@ -6,8 +6,6 @@ import { CAB } from './models/CAB';
 @Component({
   selector: 'my-app',
   template: `
-    <h1>{{title}}</h1>
-
     <dynamic-form [dataObject]="object"></dynamic-form>
   `
 })
@@ -17,6 +15,6 @@ export class AppComponent {
 
   constructor() {
     this.object = CAB;
-    this.title = CAB.settings.title;
+    //this.title = CAB.settings.title;
   }
 }

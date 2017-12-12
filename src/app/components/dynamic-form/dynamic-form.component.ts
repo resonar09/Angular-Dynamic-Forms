@@ -25,6 +25,8 @@ export class DynamicFormComponent implements OnInit {
   objectProps;
   objectValidationCustom;
   objectKeys = Object.keys;
+  title: string = "";
+  debug: boolean = false;
 
   constructor() {
   }
@@ -40,9 +42,13 @@ export class DynamicFormComponent implements OnInit {
     // setup the form
     const formGroup = {};
     for (let prop of Object.keys(this.dataObject)) {
-      formGroup[prop] = new FormControl(this.dataObject[prop].value || '', this.mapValidators(this.dataObject[prop].validation));
+      if (prop === 'settings') {
+        this.title = this.dataObject[prop].title;
+        this.debug = this.dataObject[prop].debug;
+      } else {
+        formGroup[prop] = new FormControl(this.dataObject[prop].value || '', this.mapValidators(this.dataObject[prop].validation));
+      }
     }
-
     this.form = new FormGroup(formGroup);
   }
 
@@ -69,24 +75,17 @@ export class DynamicFormComponent implements OnInit {
     return formValidators;
   }
   getErrorMessage(key, prop) {
-    //console.log(prop.validation.customs[key].message);
     if (key === 'required') {
       return prop.label + " is required.";
-    }
-    else if (key === 'min') {
+    } else if (key === 'min') {
       return prop.label + " must be greater than " + prop.validation.min;
-    }
-    else if (key === 'max') {
+    } else if (key === 'max') {
       return prop.label + " must be less than " + prop.validation.max;
-    }
-    else if (key === 'pattern') {
-      return  "You must enter a proper " +  prop.label;
-    }
-    else {
+    } else if (key === 'pattern') {
+      return "You must enter a proper " + prop.label;
+    } else {
       return prop.validation.customs[key].message;
     }
-    //console.log(prop.validation.key);
-    //return "Test worked again!"
   }
   onSubmit(form) {
     console.log(form);
