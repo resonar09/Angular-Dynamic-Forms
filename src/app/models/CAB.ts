@@ -7,8 +7,11 @@ import { validateEnds } from "../validators/ends.validator";
 
 export const CAB = {
   settings: {
+    label:'Settings',
     title: 'CAB',
+    subtitle: 'Parent Form',
     debug: false,
+    layout:'stacked'
   },
   name: {
     label: 'Name',
@@ -26,14 +29,14 @@ export const CAB = {
           function: validateEnds,
           message: 'Name must end with B'
         }
-      }
-      
+      } 
     }
   },
   age: {
     label: 'Age',
-    value: 32,
+    value: 5,
     type: 'text',
+    readOnly: true,
     validation: {
       min: 3,
       max: 10,
@@ -55,6 +58,7 @@ export const CAB = {
   gender: {
     label: 'Gender',
     value: 'M',
+    readOnly: true,
     type: 'radio',
     options: [
       { label: "Male", value: 'M'},

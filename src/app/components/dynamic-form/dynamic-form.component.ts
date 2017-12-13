@@ -26,11 +26,14 @@ export class DynamicFormComponent implements OnInit {
   objectValidationCustom;
   objectKeys = Object.keys;
   title: string = "";
+  subtitle: string = "";
   debug: boolean = false;
+  layout: string = "stacked";
+  row: string = 'row';
+  col: string = 'col';
 
   constructor() {
   }
-
   ngOnInit() {
     // remap the API to be suitable for iterating over it
     this.objectProps =
@@ -45,8 +48,22 @@ export class DynamicFormComponent implements OnInit {
       if (prop === 'settings') {
         this.title = this.dataObject[prop].title;
         this.debug = this.dataObject[prop].debug;
+        this.subtitle = this.dataObject[prop].subtitle;
+        this.layout = this.dataObject[prop].layout || this.layout;
+        if (this.layout === 'responsive') {
+          this.row = 'row';
+          this.col = 'col';
+
+        } else if (this.layout === 'two-column') {
+          this.row = 'row';
+          this.col = 'col-6';
+
+        } else {
+          this.row = 'row';
+          this.col = 'col-12';
+        }
       } else {
-        formGroup[prop] = new FormControl(this.dataObject[prop].value || '', this.mapValidators(this.dataObject[prop].validation));
+        formGroup[prop] = new FormControl({ value: this.dataObject[prop].value || '', disabled: this.dataObject[prop].readOnly || false }, this.mapValidators(this.dataObject[prop].validation));
       }
     }
     this.form = new FormGroup(formGroup);
