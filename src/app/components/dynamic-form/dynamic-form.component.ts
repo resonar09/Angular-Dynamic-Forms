@@ -58,19 +58,25 @@ export class DynamicFormComponent implements OnInit {
     this.subtitle = this.dataObject['settings'].subtitle;
     this.layout = this.dataObject['settings'].layout;
 
-    if (this.layout === 'responsive') {
+    if (this.layout === 'inline') {
       this.row = 'row';
       this.col = 'mx-4';
-
     } else if (this.layout === 'two-column') {
       this.row = 'row';
       this.col = 'col-6';
 
-    } else {
-      console.log(this.layout)
+    } else if (this.layout === 'stacked') {
       this.row = 'row';
       this.col = 'col-12';
+
+    } else if (this.layout === 'responsive') {
+      this.row = 'row';
+      this.col = 'col-sm-12 col-md-6 col-lg-3';
+    } else {
+      this.row = 'row';
+      this.col = 'col';
     }
+
     for (let prop of Object.keys(this.dataObject.controls)) {
       console.log(prop);
       formGroup[prop] = new FormControl({ value: this.dataObject.controls[prop].value || '', disabled: this.dataObject.controls[prop].readOnly || false }, this.mapValidators(this.dataObject.controls[prop].validation));

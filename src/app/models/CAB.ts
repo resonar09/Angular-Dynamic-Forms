@@ -10,14 +10,15 @@ export const CAB = {
     title: 'CAB',
     subtitle: 'Parent Form',
     debug: false,
-    layout: 'stacked'
+    layout: ''
   },
   controls: {
     name: {
       label: 'Name',
-      placeholder: 'Please enter your full name.',
+      placeholder: 'Please enter your name.',
       value: '',
       type: 'text',
+      size: '',
       validation: {
         required: true,
         customs: {
@@ -37,6 +38,7 @@ export const CAB = {
       value: 5,
       type: 'text',
       readOnly: true,
+      size: '',
       validation: {
         min: 3,
         max: 10,
