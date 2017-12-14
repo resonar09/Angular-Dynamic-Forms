@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './dynamic-form.component.html',
   styles: [
     `
+    .border-red{border: solid 1px red}
+    .border-blue{border: solid 1px blue}
     .error { color: red; }
     .form-control.ng-invalid.ng-touched{
       border-color: #ff2118;
@@ -23,48 +25,55 @@ export class DynamicFormComponent implements OnInit {
   @Input() dataObject;
   form: FormGroup;
   objectProps;
+  objectControls;
   objectValidationCustom;
   objectKeys = Object.keys;
   title: string = "";
   subtitle: string = "";
   debug: boolean = false;
-  layout: string = "stacked";
-  row: string = 'row';
-  col: string = 'col';
+  layout: string = "";
+  row: string = '';
+  col: string = '';
 
   constructor() {
   }
   ngOnInit() {
     // remap the API to be suitable for iterating over it
+
     this.objectProps =
       Object.keys(this.dataObject)
         .map(prop => {
           return Object.assign({}, { key: prop }, this.dataObject[prop]);
         });
-
+    this.objectControls = Object.keys(this.dataObject.controls)
+      .map(prop => {
+        return Object.assign({}, { key: prop }, this.dataObject.controls[prop]);
+      });
+    console.log(this.objectControls);
     // setup the form
     const formGroup = {};
-    for (let prop of Object.keys(this.dataObject)) {
-      if (prop === 'settings') {
-        this.title = this.dataObject[prop].title;
-        this.debug = this.dataObject[prop].debug;
-        this.subtitle = this.dataObject[prop].subtitle;
-        this.layout = this.dataObject[prop].layout || this.layout;
-        if (this.layout === 'responsive') {
-          this.row = 'row';
-          this.col = 'col';
 
-        } else if (this.layout === 'two-column') {
-          this.row = 'row';
-          this.col = 'col-6';
+    this.title = this.dataObject['settings'].title;
+    this.debug = this.dataObject['settings'].debug;
+    this.subtitle = this.dataObject['settings'].subtitle;
+    this.layout = this.dataObject['settings'].layout;
 
-        } else {
-          this.row = 'row';
-          this.col = 'col-12';
-        }
-      } else {
-        formGroup[prop] = new FormControl({ value: this.dataObject[prop].value || '', disabled: this.dataObject[prop].readOnly || false }, this.mapValidators(this.dataObject[prop].validation));
-      }
+    if (this.layout === 'responsive') {
+      this.row = 'row';
+      this.col = 'mx-4';
+
+    } else if (this.layout === 'two-column') {
+      this.row = 'row';
+      this.col = 'col-6';
+
+    } else {
+      console.log(this.layout)
+      this.row = 'row';
+      this.col = 'col-12';
+    }
+    for (let prop of Object.keys(this.dataObject.controls)) {
+      console.log(prop);
+      formGroup[prop] = new FormControl({ value: this.dataObject.controls[prop].value || '', disabled: this.dataObject.controls[prop].readOnly || false }, this.mapValidators(this.dataObject.controls[prop].validation));
     }
     this.form = new FormGroup(formGroup);
   }

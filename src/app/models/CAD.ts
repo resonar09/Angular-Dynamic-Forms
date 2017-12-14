@@ -1,18 +1,59 @@
+
+import { validateDuration } from "../validators/duration.validator";
+import { validateUrl } from "../validators/url.validator";
+import { validateStarts } from "../validators/starts.validator";
+import { validateEnds } from "../validators/ends.validator";
+ 
 export const CAD = {
   settings: {
-    title: 'CAD'
+    label: 'Settings',
+    title: 'CAD',
+    // subtitle: '',
+    debug: false,
+    layout: 'two-column'
   },
-  name: {
-    label: 'Name',
-    value: 'CAD',
-    type: 'text',
-    validation: {
-      required: true
+  controls: {
+    name: {
+      label: 'Name',
+      placeholder: 'Please enter your full name.',
+      value: '',
+      type: 'text',
+      validation: {
+        required: true
+      }
+    },
+    age: {
+      label: 'Age',
+      value: 5,
+      type: 'text',
+      readOnly: true,
+      validation: {
+        min: 3,
+        max: 10,
+        required: true,
+        pattern: '[0-9]+'
+      }
+    },
+    email: {
+      label: 'Email',
+      placeholder: 'test@test.com',
+      value: '',
+      type: 'email',
+      validation: {
+        required: true,
+        email: true,
+        pattern: '[a-zA-Z.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'
+      }
+    },
+    gender: {
+      label: 'Gender',
+      value: 'M',
+      readOnly: true,
+      type: 'radio',
+      options: [
+        { label: "Male", value: 'M' },
+        { label: "Female", value: 'F' }
+      ]
     }
-  },
-  age: {
-    label: 'Age',
-    value: 32,
-    type: 'text'
   }
 }

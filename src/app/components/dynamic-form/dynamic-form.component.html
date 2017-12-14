@@ -3,48 +3,50 @@
     <small class="text-muted">{{subtitle}}</small>
   </h2>
   <form novalidate (ngSubmit)="onSubmit(form.value)" [formGroup]="form">
-    <div [ngClass]="row">
-        <div *ngFor="let prop of objectProps">
-          <div *ngIf="prop.type" class="form-group" [ngClass]="col">
-            <label [attr.for]="prop">{{prop.label}}</label>
-            <div [ngSwitch]="prop.type">
-              <input *ngSwitchCase="'text'" class="form-control" [formControlName]="prop.key" [id]="prop.key" [type]="prop.type" [placeholder]="prop.placeholder"
-                [readonly]="prop.readOnly">
-              <div *ngSwitchCase="'email'" class="input-group">
-                <span class="input-group-addon" id="sizing-addon1">
-                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                </span>
-                <input class="form-control" [formControlName]="prop.key" [id]="prop.key" [type]="prop.type" [placeholder]="prop.placeholder"
-                  [readonly]="prop.readOnly">
-              </div>
-              <div *ngSwitchCase="'radio'" class="form-check">
-                <label *ngFor="let option of prop.options" class="form-check-label mr-2">
-                  <input type="radio" class="form-check-input " [name]="prop.key" [formControlName]="prop.key" [value]="option.value"> {{ option.label }}
-                </label>
-              </div>
-              <div *ngSwitchCase="'select'">
-                <select [formControlName]="prop.key" class="form-control">
-                  <option *ngFor="let option of prop.options" [value]="option.value">
-                    {{ option.label }}
-                  </option>
-                </select>
-              </div>
+    <div [ngClass]="row">    
+      <div *ngFor="let control of objectControls" class="" [ngClass]="col">
+        <div *ngIf="control.type" class="form-group">
+
+          <label [attr.for]="control">{{control.label}}</label>
+          <div [ngSwitch]="control.type">
+            <input *ngSwitchCase="'text'" class="form-control" [formControlName]="control.key" [id]="control.key" [type]="control.type" [placeholder]="control.placeholder"
+              [readonly]="control.readOnly">
+            <div *ngSwitchCase="'email'" class="input-group">
+              <span class="input-group-addon" id="sizing-addon1">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              </span>
+              <input class="form-control" [formControlName]="control.key" [id]="control.key" [type]="control.type" [placeholder]="control.placeholder"
+                [readonly]="control.readOnly">
             </div>
-            <div class="error" *ngIf="form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched)">
-              <div *ngFor="let key of objectKeys(form.get(prop.key).errors)">
-                <div *ngIf="'form.get(prop.key).errors.'+ key">
-                  {{getErrorMessage(key, prop)}}
-                </div>
-              </div>
-              <div *ngIf="debug">
-                {{prop.validation.customs | json}}
+            <div *ngSwitchCase="'radio'" class="form-check">
+              <label *ngFor="let option of control.options" class="form-check-label mr-2">
+                <input type="radio" class="form-check-input " [name]="control.key" [formControlName]="control.key" [value]="option.value"> {{ option.label }}
+              </label>
+            </div>
+            <div *ngSwitchCase="'select'">
+              <select [formControlName]="control.key" class="form-control">
+                <option *ngFor="let option of control.options" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="error" *ngIf="form.get(control.key).invalid && (form.get(control.key).dirty || form.get(control.key).touched)">
+            <div *ngFor="let key of objectKeys(form.get(control.key).errors)">
+              <div *ngIf="'form.get(control.key).errors.'+ key">
+                {{getErrorMessage(key, control)}}
               </div>
             </div>
             <div *ngIf="debug">
-              {{form.get(prop.key).errors | json}}
+              {{control.validation.customs | json}}
             </div>
           </div>
+          <div *ngIf="debug">
+            {{form.get(control.key).errors | json}}
+          </div>
+
         </div>
+      </div>
     </div>
     <div class="p-5">
       <button [disabled]="!form.valid" type="submit" class="btn btn-primary float-right ">Continue</button>
