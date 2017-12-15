@@ -3,12 +3,13 @@ import { validateDuration } from "../validators/duration.validator";
 import { validateUrl } from "../validators/url.validator";
 import { validateStarts } from "../validators/starts.validator";
 import { validateEnds } from "../validators/ends.validator";
- 
+
 export const CAD = {
   settings: {
     label: 'Settings',
     title: 'CAD',
     // subtitle: '',
+    background: 'bg-light',
     debug: false,
     layout: 'two-column'
   },
@@ -22,11 +23,20 @@ export const CAD = {
         required: true
       }
     },
+    date: {
+      label: 'Date',
+      value: '',
+      placeholder: '__/__/____',
+      type: 'date',
+      validation: {
+        required: true
+      }
+    },
     age: {
       label: 'Age',
       value: 5,
-      type: 'text',
-      readOnly: true,
+      type: 'number',
+      readOnly: false,
       validation: {
         min: 3,
         max: 10,
@@ -54,6 +64,18 @@ export const CAD = {
         { label: "Male", value: 'M' },
         { label: "Female", value: 'F' }
       ]
+    }
+  },
+  buttons: {
+    continue: {
+      label: 'Continue',
+      type: 'submit',
+      class: 'btn-primary'
+    },
+    cancel: {
+      label: 'Cancel',
+      type: 'cancel',
+      class: 'btn-secondary'
     }
   }
 }

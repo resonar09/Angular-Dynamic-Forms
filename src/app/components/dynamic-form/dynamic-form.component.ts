@@ -26,9 +26,11 @@ export class DynamicFormComponent implements OnInit {
   form: FormGroup;
   objectProps;
   objectControls;
+  objectButtons;
   objectValidationCustom;
   objectKeys = Object.keys;
   title: string = "";
+  background: string = "";
   subtitle: string = "";
   debug: boolean = false;
   layout: string = "";
@@ -49,7 +51,10 @@ export class DynamicFormComponent implements OnInit {
       .map(prop => {
         return Object.assign({}, { key: prop }, this.dataObject.controls[prop]);
       });
-    console.log(this.objectControls);
+      this.objectButtons = Object.keys(this.dataObject.buttons)
+      .map(prop => {
+        return Object.assign({}, { key: prop }, this.dataObject.buttons[prop]);
+      });
     // setup the form
     const formGroup = {};
 
@@ -57,6 +62,7 @@ export class DynamicFormComponent implements OnInit {
     this.debug = this.dataObject['settings'].debug;
     this.subtitle = this.dataObject['settings'].subtitle;
     this.layout = this.dataObject['settings'].layout;
+    this.background = this.dataObject['settings'].background;
 
     if (this.layout === 'inline') {
       this.row = 'row';

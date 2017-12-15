@@ -1,16 +1,21 @@
-<div class="container">
+<div class="container p-4" [ngClass]="background">
   <h2>{{title}}
     <small class="text-muted">{{subtitle}}</small>
   </h2>
+
   <form novalidate (ngSubmit)="onSubmit(form.value)" [formGroup]="form">
-    <div [ngClass]="row">    
+    <div [ngClass]="row">
       <div *ngFor="let control of objectControls" class="" [ngClass]="(control.size) ? control.size : col">
         <div *ngIf="control.type" class="form-group">
 
           <label [attr.for]="control">{{control.label}}</label>
           <div [ngSwitch]="control.type">
-            <input *ngSwitchCase="'text'" class="form-control" [formControlName]="control.key" [id]="control.key" [type]="control.type" [placeholder]="control.placeholder"
-              [readonly]="control.readOnly">
+            <input *ngSwitchCase="'text'" class="form-control" [formControlName]="control.key" [id]="control.key" [type]="control.type"
+              [placeholder]="control.placeholder" [readonly]="control.readOnly">
+            <input *ngSwitchCase="'number'" class="form-control" [formControlName]="control.key" [id]="control.key" [type]="control.type"
+              [placeholder]="control.placeholder" [readonly]="control.readOnly">
+            <input *ngSwitchCase="'date'" class="form-control" [formControlName]="control.key" [id]="control.key" [type]="control.type"
+              [placeholder]="control.placeholder" [readonly]="control.readOnly">
             <div *ngSwitchCase="'email'" class="input-group">
               <span class="input-group-addon" id="sizing-addon1">
                 <i class="fa fa-envelope-o" aria-hidden="true"></i>
@@ -47,10 +52,11 @@
         </div>
       </div>
     </div>
-    <div class="p-5">
-      <button [disabled]="!form.valid" type="submit" class="btn btn-primary float-right ">Continue</button>
-      <button type="cancel" class="btn btn-secondary float-right mr-2">Cancel</button>
+    <div class="d-flex flex-row-reverse">
+    <div *ngFor="let button of objectButtons" class="mr-2">
+          <button [disabled]="!form.valid" [type]="button.type" class="btn" [ngClass]="button.class">{{button.label}}</button>
     </div>
+  </div>
   </form>
   <div *ngIf="debug">
     <hr />
