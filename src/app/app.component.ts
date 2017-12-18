@@ -14,7 +14,7 @@ export class AppComponent {
   title;
 
   constructor() {
-    this.object = CAD;
+    this.object = CAB;
     //this.title = CAB.settings.title;
   }
 }

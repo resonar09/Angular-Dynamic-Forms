@@ -41,7 +41,6 @@ export class DynamicFormComponent implements OnInit {
   }
   ngOnInit() {
     // remap the API to be suitable for iterating over it
-
     this.objectProps =
       Object.keys(this.dataObject)
         .map(prop => {
@@ -58,12 +57,15 @@ export class DynamicFormComponent implements OnInit {
     // setup the form
     const formGroup = {};
 
+    // setup of general settings
     this.title = this.dataObject['settings'].title;
     this.debug = this.dataObject['settings'].debug;
     this.subtitle = this.dataObject['settings'].subtitle;
     this.layout = this.dataObject['settings'].layout;
     this.background = this.dataObject['settings'].background;
 
+
+    // setup of layouts
     if (this.layout === 'inline') {
       this.row = 'row';
       this.col = 'mx-4';
@@ -82,14 +84,14 @@ export class DynamicFormComponent implements OnInit {
       this.row = 'row';
       this.col = 'col';
     }
-
+    //create reactive form controls
     for (let prop of Object.keys(this.dataObject.controls)) {
       console.log(prop);
       formGroup[prop] = new FormControl({ value: this.dataObject.controls[prop].value || '', disabled: this.dataObject.controls[prop].readOnly || false }, this.mapValidators(this.dataObject.controls[prop].validation));
     }
     this.form = new FormGroup(formGroup);
   }
-
+  // setup for validation
   private mapValidators(validators) {
     const formValidators = [];
 

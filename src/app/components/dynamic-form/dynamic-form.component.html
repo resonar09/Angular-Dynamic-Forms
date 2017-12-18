@@ -53,10 +53,10 @@
       </div>
     </div>
     <div class="d-flex flex-row-reverse">
-    <div *ngFor="let button of objectButtons" class="mr-2">
-          <button [disabled]="!form.valid" [type]="button.type" class="btn" [ngClass]="button.class">{{button.label}}</button>
+      <div *ngFor="let button of objectButtons" class="mr-2">
+        <button [disabled]="!form.valid" [type]="button.type" class="btn" [ngClass]="button.class">{{button.label}}</button>
+      </div>
     </div>
-  </div>
   </form>
   <div *ngIf="debug">
     <hr />

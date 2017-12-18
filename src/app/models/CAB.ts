@@ -10,7 +10,7 @@ export const CAB = {
     title: 'CAB',
     subtitle: 'Parent Form',
     debug: false,
-    layout: ''
+    layout: 'inline' // inline | two-column | stacked | responsive
   },
   controls: {
     name: {
@@ -36,8 +36,8 @@ export const CAB = {
     age: {
       label: 'Age',
       value: 5,
-      type: 'text',
-      readOnly: true,
+      type: 'number',
+      readOnly: false,
       size: '',
       validation: {
         min: 3,
@@ -80,6 +80,18 @@ export const CAB = {
       validation: {
         required: true
       }
+    }
+  },
+  buttons: {
+    continue: {
+      label: 'Continue',
+      type: 'submit',
+      class: 'btn-primary'
+    },
+    cancel: {
+      label: 'Cancel',
+      type: 'cancel',
+      class: 'btn-secondary'
     }
   }
 }
