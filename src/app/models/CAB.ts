@@ -4,6 +4,27 @@ import { validateUrl } from "../validators/url.validator";
 import { validateStarts } from "../validators/starts.validator";
 import { validateEnds } from "../validators/ends.validator";
  
+function getSelect(){
+   const parent = [
+    { label: "(choose one)", value: '' },
+    { label: "Perez", value: '39100' },
+    { label: "Meltina", value: '39010' },
+    { label: "Appiano", value: '39057' }
+  ];
+  return parent;
+}
+
+function getSelectClick(){
+  const parent = [
+   { label: "(choose one)", value: '' },
+   { label: "Perez", value: '39100' },
+   { label: "Meltina", value: '39010' },
+   { label: "Appiano", value: '39057' }
+ ];
+ return parent;
+}
+
+
 export const CAB = {
   settings: {
     label: 'Settings',
@@ -17,10 +38,10 @@ export const CAB = {
       label: 'Name',
       placeholder: 'Please enter your name.',
       value: '',
-      type: 'text',
+      type: 'text', //text | number | date | email | radio | select
       size: '',
       validation: {
-        required: true,
+        required: true, //required | min | max | pattern
         customs: {
           validateStarts: {
             function: validateStarts,
@@ -71,12 +92,7 @@ export const CAB = {
       label: 'City',
       value: '',
       type: 'select',
-      options: [
-        { label: "(choose one)", value: '' },
-        { label: "Bolzano", value: '39100' },
-        { label: "Meltina", value: '39010' },
-        { label: "Appiano", value: '39057' }
-      ],
+      options: getSelect(),
       validation: {
         required: true
       }
@@ -85,7 +101,7 @@ export const CAB = {
   buttons: {
     continue: {
       label: 'Continue',
-      type: 'submit',
+      type: 'submit', //submit | cancel | reset
       class: 'btn-primary'
     },
     cancel: {
