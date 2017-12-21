@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+/* import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-//import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'dynamic-form',
@@ -22,12 +22,12 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   ]
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() dataObject:any;
+  @Input() dataObject;
   form: FormGroup;
-  objectProps:any;
-  objectControls:any;
-  objectButtons:any;
-  //objectValidationCustom;
+  objectProps;
+  objectControls;
+  objectButtons;
+  objectValidationCustom;
   objectKeys = Object.keys;
   title: string = "";
   background: string = "";
@@ -55,7 +55,7 @@ export class DynamicFormComponent implements OnInit {
         return Object.assign({}, { key: prop }, this.dataObject.buttons[prop]);
       });
     // setup the form
-    const formGroup:any = {};
+    const formGroup = {};
 
     // setup of general settings
     this.title = this.dataObject['settings'].title;
@@ -92,7 +92,7 @@ export class DynamicFormComponent implements OnInit {
     this.form = new FormGroup(formGroup);
   }
   // setup for validation
-  private mapValidators(validators:any) {
+  private mapValidators(validators) {
     const formValidators = [];
 
     if (validators) {
@@ -114,7 +114,7 @@ export class DynamicFormComponent implements OnInit {
     }
     return formValidators;
   }
-  getErrorMessage(key:string, prop:any) {
+  getErrorMessage(key, prop) {
     if (key === 'required') {
       return prop.label + " is required.";
     } else if (key === 'min') {
@@ -127,7 +127,8 @@ export class DynamicFormComponent implements OnInit {
       return prop.validation.customs[key].message;
     }
   }
-  onSubmit(form:any) {
+  onSubmit(form) {
     console.log(form);
   }
 }
+ */
